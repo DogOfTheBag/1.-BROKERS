@@ -37,7 +37,7 @@ public class Menu {
         Scanner sc = new Scanner(System.in);
         //convierto la eleccion a minuscula para que si el user pone S lo detecte como s y salga
         eleccion = Character.toLowerCase(eleccion);
-        if(empresas.size() > 1){
+        if(empresas.size() > 0){
             switch(eleccion){
                 //el caso 1 hace el gráfico de una empresa
                 case '1':
@@ -85,7 +85,7 @@ public class Menu {
                 
                 for (Empresa empresa : empresas) {
                     if(nombreEmpresa.equalsIgnoreCase(empresa.getNombre())){
-                        generarGrafico(empresa);
+                        generarGrafico(empresa,sc);
                          Thread.sleep(3000);
                         //TENGO QUE HACER LA FUNCION HACER GRAFICO
                         encontrada = true;
@@ -118,46 +118,122 @@ public class Menu {
             }
         }
         System.out.println("Grafico de la primera empresa:");
-        generarGrafico(empresa1);
+        generarGrafico(empresa1,sc);
         Thread.sleep(3000);
         System.out.println("Grafico de la segunda empresa:");
-        generarGrafico(empresa2);
+        generarGrafico(empresa2,sc);
         Thread.sleep(3000);
     }
     //TENGO QUE METERLE QUE HAGA GRAFICOS DE 3 Y 6 MESES
-    private void generarGrafico(Empresa empresa) {
-        String[][] grafico = new String[12][13];
+    private void generarGrafico(Empresa empresa, Scanner sc) {
+        System.out.println("Introduce que datos quieres ver: (3) meses, (6) meses, (12) meses");
+        int formato = sc.nextInt();
+        switch(formato){
+            case 12:
+                String[][] grafico = new String[12][13];
         
-        for (int j = 0; j < 12; j++) {
-            for (int i = 0; i < 13; i++) {
-                grafico[j][i] = " ";
-            }
-        }
-        for (int i = 0; i < 12; i++) {
-            double valores[] = empresa.getCotizaciones();
-            for (int j = 0; j < valores[i] && j < 12; j++) {
-                grafico[10 - j][i] = "*";
-            }
-        }    
-            grafico[11][0] = "E";
-            grafico[11][1] = "F";
-            grafico[11][2] = "M";
-            grafico[11][3] = "A";
-            grafico[11][4] = "M";
-            grafico[11][5] = "J";
-            grafico[11][6] = "J";
-            grafico[11][7] = "A";
-            grafico[11][8] = "S";
-            grafico[11][9] = "O";
-            grafico[11][10] = "N";
-            grafico[11][11] = "D";
-            grafico[11][12] = "Empresa: " + empresa.getNombre();
+                for (int j = 0; j < 12; j++) {
+                    for (int i = 0; i < 13; i++) {
+                        grafico[j][i] = " ";
+                    }
+                }
+                for (int i = 0; i < 12; i++) {
+                    double valores[] = empresa.getCotizaciones();
+                    for (int j = 0; j < valores[i] && j < 12; j++) {
+                        grafico[10 - j][i] = "*";
+                    }
+                }    
+                grafico[11][0] = "E";
+                grafico[11][1] = "F";
+                grafico[11][2] = "M";
+                grafico[11][3] = "A";
+                grafico[11][4] = "M";
+                grafico[11][5] = "J";
+                grafico[11][6] = "J";
+                grafico[11][7] = "A";
+                grafico[11][8] = "S";
+                grafico[11][9] = "O";
+                grafico[11][10] = "N";
+                grafico[11][11] = "D";
+                grafico[11][12] = "Empresa: " + empresa.getNombre();
+
+                for (int j = 0; j < 12; j++) {
+                    for (int i = 0; i < 13; i++) {
+                        System.out.print(grafico[j][i] + " ");
+                    }
+                    System.out.println();
+                }
+                break;
+            case 6:
+                String[][] grafico6 = new String[12][7]; // La matriz tiene 12 filas y 7 columnas (6 meses + 1 para el nombre de la empresa)
+
+                // Inicializar la matriz con espacios vacíos
+                for (int j = 0; j < 12; j++) {
+                    for (int i = 0; i < 7; i++) {
+                        grafico6[j][i] = " ";
+                    }
+                }
+
+                // Obtener los valores de cotización y agregar las barras en la matriz
+                double valores[] = empresa.getCotizaciones();
+                for (int i = 0; i < 6; i++) { // Limitar a los primeros 6 meses
+                    for (int j = 0; j < valores[i] && j < 12; j++) {
+                        grafico6[10 - j][i] = "*";
+                    }
+                }
+
+                // Agregar los nombres de los meses y el nombre de la empresa debajo de las barras
+                grafico6[11][0] = "E";
+                grafico6[11][1] = "F";
+                grafico6[11][2] = "M";
+                grafico6[11][3] = "A";
+                grafico6[11][4] = "M";
+                grafico6[11][5] = "J";
+                grafico6[11][6] = "Empresa: " + empresa.getNombre();
+
+                // Mostrar la matriz
+                for (int j = 0; j < 12; j++) {
+                    for (int i = 0; i < 7; i++) {
+                        System.out.print(grafico6[j][i] + " ");
+                    }
+                    System.out.println();
+                }
+                break;
+                case 3:
+                    String[][] grafico3 = new String[12][4]; // La matriz tiene 12 filas y 4 columnas (3 meses + 1 para el nombre de la empresa)
+
+                    // Inicializar la matriz con espacios vacíos
+                    for (int j = 0; j < 12; j++) {
+                        for (int i = 0; i < 4; i++) {
+                            grafico3[j][i] = " ";
+                        }
+                    }
+
+                    // Obtener los valores de cotización y agregar las barras en la matriz
+                    double valores3[] = empresa.getCotizaciones();
+                    for (int i = 0; i < 3; i++) { // Limitar a los primeros 3 meses
+                        for (int j = 0; j < valores3[i] && j < 12; j++) {
+                            grafico3[10 - j][i] = "*";
+                        }
+                    }
+
+                    // Agregar los nombres de los meses y el nombre de la empresa debajo de las barras
+                    grafico3[11][0] = "E";
+                    grafico3[11][1] = "F";
+                    grafico3[11][2] = "M";
+                    grafico3[11][3] = "Empresa: " + empresa.getNombre();
+
+                    // Mostrar la matriz
+                    for (int j = 0; j < 12; j++) {
+                        for (int i = 0; i < 4; i++) {
+                            System.out.print(grafico3[j][i] + " ");
+                        }
+                        System.out.println();
+                    }
+    break;
+
         
-        for (int j = 0; j < 12; j++) {
-            for (int i = 0; i < 13; i++) {
-                System.out.print(grafico[j][i] + " ");
-            }
-            System.out.println();
         }
     }
+        
 }

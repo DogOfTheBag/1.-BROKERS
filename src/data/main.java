@@ -51,7 +51,7 @@ public class main {
         }
     }
     public static boolean cotizacionCorrecta(double cotizacion){
-        if (cotizacion > 0 && cotizacion < 10)
+        if (cotizacion >= 0 && cotizacion <= 10)
             return true;
             else
                 return false;
