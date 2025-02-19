@@ -124,7 +124,7 @@ public class Menu {
         generarGrafico(empresa2);
         Thread.sleep(3000);
     }
-    
+    //TENGO QUE METERLE QUE HAGA GRAFICOS DE 3 Y 6 MESES
     private void generarGrafico(Empresa empresa) {
         String[][] grafico = new String[12][13];
         
