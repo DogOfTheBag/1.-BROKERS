@@ -21,7 +21,7 @@ public class Menu {
     public void vis(){
         System.out.println("1. Ver grafico de 1 valor");
         System.out.println("2. Comparar 2 graficos de valores");
-        System.out.println("s. Salir del programa");
+        System.out.println("S. Salir del programa");
     }
     
     /*pequeño metodo que "limpia" la pantalla de la consola*/
@@ -73,6 +73,11 @@ public class Menu {
             return salir;
         }
     }
+    
+    
+    
+    
+    
     /*está funcion se encarga de coger la empresa y asegurarse de que existe*/
     private void empresaGrafico(Scanner sc) throws InterruptedException {
         System.out.println("Introduce la empresa sobre la que quieras ver el grafico");
@@ -96,6 +101,11 @@ public class Menu {
             System.out.println("No se ha encontrado la empresa...");
 
     }
+    
+    
+    
+    
+    
    /*Método que se encarga de generar los graficos. Te pide primero la cantidad de meses
     de los que quieres ver datos, y después lo representa. Explicaré el del año entero,
     los demás son iguales, cambiando solo la cantidad de meses que se muestra*/
@@ -206,6 +216,13 @@ public class Menu {
             break;
         }
     }
+       
+    
+    
+    
+    
+    
+        
         //metodo usado para poner 2 gráficos de 2 empresas al mismo tiempo
         //es como el metodo graficoEmpresa pero para 2
         private void compararEmpresas(Scanner sc) throws InterruptedException{
